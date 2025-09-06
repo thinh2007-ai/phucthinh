@@ -1,142 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-    <meta charset="utf-8">
-    <title>Kiến thức Python cơ bản</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
-        h2 { color: #2c3e50; }
-    </style>
+<meta charset="UTF-8">
+<title></title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* ẩn thanh cuộn */
+  }
+
+  /* Nút profile */
+  #profileBtn {
+    position:fixed;
+    top:25px;
+    left:80px;
+    padding:15px 25px;
+    font-size:14px;
+    background:rgba(0,0,0,0.6);
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    z-index:3;
+    display:none; /* ban đầu ẩn */
+  }
+
+  /* Khung profile */
+  .profile-box {
+    position:fixed;
+    top:80px;
+    left:10px;
+    text-align: left;
+    z-index:2;
+    width:350px;
+    padding:15px;
+    background:rgba(0,0,0,0.7);
+    color:white;
+    border-radius:10px;
+    display:none;
+  }
+
+  /* Hiệu ứng gõ chữ */
+  .typewriter {
+    white-space: pre-wrap;
+    overflow: hidden;
+    width: 0;
+  }
+
+  /* Nút Xin chào giữa màn hình */
+  #helloBtn {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    font-size: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 5;
+  }
+  /* Nút Xin chào giữa màn hình kiểu Wuthering Waves */
+#helloBtn {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 50px;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  background: rgba(0, 0, 0, 0.6);
+  color: #00e5ff;
+  border: 2px solid #00e5ff;
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 5;
+
+  box-shadow: 0 0 15px #00e5ff, 0 0 30px #0088cc inset;
+  transition: all 0.3s ease;
+}
+
+/* Hiệu ứng hover */
+#helloBtn:hover {
+  background: rgba(0, 229, 255, 0.2);
+  color: #ffffff;
+  box-shadow: 0 0 20px #00e5ff, 0 0 40px #00bfff, 0 0 60px #0088cc;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+</style>
 </head>
 <body>
-    <h1>
-        Các thẻ cơ bản html
-    </h1>
-    <button oneclick="mot"
-    
-    <ul>
-        <li>&lt;!DOCTYPE html&gt; : Khai báo tài liệu HTML</li>
-        <li>&lt;html&gt; : Thẻ gốc của tài liệu HTML</li>
-        <li>&lt;head&gt; : Chứa thông tin về tài liệu (metadata)</li>
-        <li>&lt;title&gt; : Tiêu đề trang</li>
-        <li>&lt;meta&gt; : Khai báo thông tin meta</li>
-        <li>&lt;body&gt; : Chứa nội dung hiển thị của trang web</li>
-        <li>&lt;h1&gt; đến &lt;h6&gt; : Tiêu đề cấp 1 đến 6</li>
-        <li>&lt;p&gt; : Đoạn văn bản</li>
-        <li>&lt;br&gt; : Xuống dòng</li>
-        <li>&lt;hr&gt; : Kẻ đường ngang</li>
-        <li>&lt;b&gt;, &lt;strong&gt; : Chữ đậm</li>
-        <li>&lt;i&gt;, &lt;em&gt; : Chữ nghiêng</li>
-        <li>&lt;u&gt; : Gạch chân</li>
-        <li>&lt;ul&gt; : Danh sách không thứ tự</li>
-        <li>&lt;ol&gt; : Danh sách có thứ tự</li>
-        <li>&lt;li&gt; : Mục trong danh sách</li>
-        <li>&lt;a&gt; : Liên kết</li>
-        <li>&lt;img&gt; : Hình ảnh</li>
-        <li>&lt;table&gt; : Bảng</li>
-        <li>&lt;tr&gt; : Hàng trong bảng</li>
-        <li>&lt;td&gt; : Ô trong bảng</li>
-        <li>&lt;th&gt; : Ô tiêu đề trong bảng</li>
-        <li>&lt;form&gt; : Biểu mẫu</li>
-        <li>&lt;input&gt; : Ô nhập liệu</li>
-        <li>&lt;label&gt; : Nhãn cho input</li>
-        <li>&lt;button&gt; : Nút bấm</li>
-        <li>&lt;select&gt; : Danh sách chọn</li>
-        <li>&lt;option&gt; : Tùy chọn trong select</li>
-        <li>&lt;textarea&gt; : Ô nhập nhiều dòng</li>
-        <li>&lt;div&gt; : Khối nhóm nội dung</li>
-        <li>&lt;span&gt; : Nhóm nội dung nhỏ</li>
-    </ul>
-    <hr>
-    <h1>Kiến thức Python cơ bản</h1>
-    <h2>1. Biến và kiểu dữ liệu</h2>
-    <pre>
-a = 5           # số nguyên (int)
-b = 3.14        # số thực (float)
-c = "Hello"     # chuỗi (str)
-d = True        # kiểu logic (bool)
-    </pre>
-    <p><b>Biến</b> là tên lưu giá trị. <b>Kiểu dữ liệu</b>: int, float, str, bool.</p>
 
-    <h2>2. Nhập và xuất dữ liệu</h2>
-    <pre>
-print("Xin chào!")
-ten = input("Nhập tên: ")
-tuoi = int(input("Nhập tuổi: "))
-    </pre>
-    <p><b>input()</b> luôn trả về chuỗi, cần ép kiểu nếu muốn dùng số.</p>
+<!-- Nhạc nền -->
+<audio id="bgMusic" src="phainon.mp3" muted loop></audio>
 
-    <h2>3. Toán tử</h2>
-    <pre>
-x = 7
-y = 3
-print(x + y)    # 10
-print(x / y)    # 2.333...
-print(x // y)   # 2 (chia lấy phần nguyên)
-print(x % y)    # 1 (chia lấy dư)
-print(x ** y)   # 343 (lũy thừa)
-    </pre>
+<!-- Nút Xin chào -->
+<button id="helloBtn" onclick="startSite()">Xin chào</button>
 
-    <h2>4. Câu lệnh điều kiện (if)</h2>
-    <pre>
-a = 10
-if a > 5:
-    print("a lớn hơn 5")
-elif a == 5:
-    print("a bằng 5")
-else:
-    print("a nhỏ hơn 5")
-    </pre>
+<!-- Video nền giữ nguyên như bạn -->
+<video autoplay muted loop 
+  style="position:fixed; top:0; left:0; width:100%; height:100%; 
+         object-fit:fill; z-index:-1;">
+  <source src="KleeWP.mp4" type="video/mp4">
+</video>
 
-    <h2>5. Vòng lặp</h2>
-    <pre>
-for i in range(5):
-    print(i)
+<!-- Nút mở profile -->
+<button id="profileBtn" onclick="toggleProfile()">PROFILE</button>
 
-n = 0
-while n < 5:
-    print(n)
-    n += 1
-    </pre>
+<!-- Khung thông tin -->
+<div class="profile-box" id="profileBox">
+  <h3 class="typewriter" data-text="Thông tin"></h3>
+  <p class="typewriter" data-text="Tên: Phúc Thịnh"></p>
+  <p class="typewriter" data-text="Email: phucthinh@example.com"></p>
+  <p class="typewriter" data-text="THỬ NGHIỆM WEBSITE PROFILE CÁ NHÂN"></p>
+</div>
 
-    <h2>6. Danh sách (list)</h2>
-    <pre>
-lst = [1, 2, 3, 4]
-print(lst[0])
-lst.append(5)
-print(len(lst))
-    </pre>
+<script>
+/* Khi nhấn Xin chào */
+function startSite() {
+  const audio = document.getElementById("bgMusic");
+  audio.muted = false;
+  audio.volume = 0.35;
+  audio.play();
 
-    <h2>7. Hàm tự định nghĩa</h2>
-    <pre>
-def tong(a, b):
-    return a + b
+  document.getElementById("helloBtn").style.display = "none";
+  document.getElementById("profileBtn").style.display = "inline-block";
+}
 
-kq = tong(3, 4)
-print(kq)
-    </pre>
+/* Hiệu ứng gõ chữ */
+function typeWriter(el, text, speed = 100, callback) {
+  let i = 0;
+  el.textContent = "";
+  el.style.width = "auto";
 
-    <h2>8. Lệnh break, continue</h2>
-    <pre>
-for i in range(10):
-    if i == 5:
-        break
-    if i % 2 == 0:
-        continue
-    print(i)
-    </pre>
+  function typing() {
+    if (i < text.length) {
+      el.textContent += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+    } else {
+      if (callback) callback();
+    }
+  }
+  typing();
+}
 
-    <h2>9. Ví dụ tổng hợp</h2>
-    <pre>
-def kiem_tra_chan_le(n):
-    if n % 2 == 0:
-        return "Chẵn"
-    else:
-        return "Lẻ"
+/* Bật/tắt profile */
+function toggleProfile() {
+  const box = document.getElementById("profileBox");
+  const btn = document.getElementById("profileBtn");
 
-so = int(input("Nhập số nguyên: "))
-print("Số bạn vừa nhập là:", kiem_tra_chan_le(so))
-    </pre>
+  if (box.style.display === "block") {
+    box.style.display = "none";
+    btn.style.display = "inline-block";
+  } else {
+    box.style.display = "block";
+    btn.style.display = "none";
+
+    const elements = box.querySelectorAll(".typewriter");
+    let index = 0;
+
+    function runNext() {
+      if (index < elements.length) {
+        const el = elements[index];
+        typeWriter(el, el.getAttribute("data-text"), 100, runNext);
+        index++;
+      }
+    }
+    runNext();
+  }
+}
+</script>
+
 </body>
 </html>
