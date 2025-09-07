@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Profile Demo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Nhạc nền -->
+<audio id="bgMusic" src="phainon.mp3" muted loop></audio>
+
+<!-- Nút Xin chào -->
+<button id="helloBtn" onclick="startSite()">Xin chào</button>
+
+<!-- Video nền -->
+<video id="bgVideo" autoplay muted loop>
+  <source src="back.mp4" type="video/mp4">
+</video>
+
+<!-- Nút mở profile -->
+<button id="profileBtn" onclick="toggleProfile()">PROFILE</button>
+
+<!-- Khung thông tin -->
+<div class="profile-box" id="profileBox">
+  <h3 class="typewriter" data-text="Thông tin"></h3>
+  <p class="typewriter" data-text="Tên: Phúc Thịnh"></p>
+  <p class="typewriter" data-text="Email: phucthinh@example.com"></p>
+  <p class="typewriter" data-text="THỬ NGHIỆM WEBSITE PROFILE CÁ NHÂN"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
