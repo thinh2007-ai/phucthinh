@@ -1,31 +1,82 @@
-const helloBtn = document.getElementById('helloBtn');
+window.addEventListener("load", () => {
+  const bgVideo = document.getElementById("bgVideo");
+  bgVideo.style.width = window.innerWidth + "px";
+  bgVideo.style.height = window.innerHeight + "px";
+});
+
+// Không update khi resize => giữ nguyên
+// Reload web khi người dùng thay đổi kích thước cửa sổ
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    location.reload();
+  }, 300); // đợi 300ms sau khi resize xong mới reload
+});
+
+
+
+
+
+let hashes = document.getElementById("hashes");
+let percentText = document.getElementById("percent");
+let loadingScreen = document.getElementById("loadingScreen");
+let pressBtn = document.getElementById("pressBtn");
+let progressBox = document.getElementById("progressBox");
+let progress = 0;
+
+const totalHashes = 53;
+
+// Loading bar
+let loading = setInterval(() => {
+  progress++;
+  let filled = Math.floor(progress / 100 * totalHashes);
+
+  hashes.textContent = "#".repeat(filled);
+  percentText.textContent = progress + "%";
+
+  if (progress >= 101) {
+    clearInterval(loading);
+    hashes.textContent = "#".repeat(totalHashes);
+    percentText.textContent = "100% DONE!";
+
+    progressBox.style.display = "none";
+    pressBtn.style.display = "inline-block"; // hiện nút
+  }
+}, 50);
+
+// Khi bấm nút "Vui lòng ấn"
+pressBtn.addEventListener("click", () => {
+  loadingScreen.style.display = "none";       // ẩn màn hình đen
+  document.body.classList.add("active");      // bật hiệu ứng border video
+  startSite();                                // chạy site
+});
+
+
+// ----------- Chức năng site -----------
 const profileBtn = document.getElementById('profileBtn');
 const profileBox = document.getElementById('profileBox');
 const bgMusic = document.getElementById('bgMusic');
 const bgVideo = document.getElementById('bgVideo');
 
-// Bắt đầu site
+// Khởi động site
 function startSite() {
-  helloBtn.style.display = 'none';
   profileBtn.style.display = 'inline-block';
   bgMusic.muted = false;
   bgMusic.volume = 0.35;
   bgMusic.play();
 }
 
-// Bật/tắt profile và gõ chữ
+// Bật/tắt profile + gõ chữ
 function toggleProfile() {
-  const box = profileBox;
-  const btn = profileBtn;
-
-  if (box.style.display === "block") {
-    box.style.display = "none";
-    btn.style.display = "inline-block";
+  if (profileBox.style.display === "block") {
+    profileBox.style.display = "none";
+    profileBtn.style.display = "inline-block";
   } else {
-    box.style.display = "block";
-    btn.style.display = "none";
+    profileBox.style.display = "block";
+    profileBtn.style.display = "none";
 
-    const elements = box.querySelectorAll(".typewriter");
+    const elements = profileBox.querySelectorAll(".typewriter");
     let index = 0;
 
     function runNext() {
@@ -39,7 +90,7 @@ function toggleProfile() {
   }
 }
 
-// Hiệu ứng gõ chữ từng dòng
+// Hiệu ứng gõ chữ
 function typeWriter(el, text, speed = 100, callback) {
   let i = 0;
   el.textContent = "";
@@ -48,14 +99,12 @@ function typeWriter(el, text, speed = 100, callback) {
       el.textContent += text.charAt(i);
       i++;
       setTimeout(typing, speed);
-    } else {
-      if (callback) callback();
-    }
+    } else if (callback) callback();
   }
   typing();
 }
 
-// Giữ video căn giữa và responsive
+// Responsive video căn giữa
 function centerVideo() {
   const vw = window.innerWidth;
   const vh = window.innerHeight;
@@ -70,8 +119,9 @@ function centerVideo() {
     bgVideo.style.height = vh + "px";
   }
 
-  bgVideo.style.left = (vw - bgVideo.offsetWidth)/2 + "px";
-  bgVideo.style.top = (vh - bgVideo.offsetHeight)/2 + "px";
+  bgVideo.style.position = "absolute";
+  bgVideo.style.left = (vw - bgVideo.offsetWidth) / 2 + "px";
+  bgVideo.style.top = (vh - bgVideo.offsetHeight) / 2 + "px";
 }
 
 window.addEventListener("resize", centerVideo);
