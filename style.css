@@ -1,56 +1,136 @@
-/* HTML & Body full viewport */
+/* ----------- RESET ----------- */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
-
+  font-family: monospace;
 }
 
-video#bgVideo {
+/* ----------- LOADING SCREEN ----------- */
+#loadingScreen {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
+}
+
+/* Khung viền gradient */
+.progress-border {
+  padding: 3px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #00e5ff, #00ff88, #ff00ff, #ffaa00, #00e5ff);
+  background-size: 400% 400%;
+  animation: borderGradient 6s linear infinite;
+}
+
+.progress-container {
+  width: 80vw;
+  max-width: 800px;
+  height: 40px;
+  background: #222;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.progress-bar {
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* phủ toàn màn hình */
-  z-index: -1;
-
-  /* Chỉ làm nét, màu không đổi */
-  filter: none; /* hoặc brightness(100%) contrast(100%) */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-
-/* Nút Xin chào */
-#helloBtn {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px 50px;
+/* Text # */
+.hashes, .percent {
   font-size: 22px;
   font-weight: bold;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  background: rgba(0,0,0,0.6);
-  color: #00e5ff;
-  border: 2px solid #00e5ff;
-  border-radius: 12px;
+  background: linear-gradient(90deg, #00e5ff, #00ff88, #ff00ff, #ffaa00, #00e5ff);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGradient 4s linear infinite;
+}
+.hashes {
+  flex-grow: 1;
+  text-align: left;
+  white-space: nowrap;
+  margin-right: 10px;
+}
+.percent {
+  min-width: 110px;
+  text-align: right;
+}
+
+/* Nút Vui Lòng Ấn */
+#pressBtn {
+  display: none;
+  margin-top: 30px;
+  padding: 15px 40px;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10px;
   cursor: pointer;
-  z-index: 5;
-  box-shadow: 0 0 15px #00e5ff, 0 0 30px #0088cc inset;
+  background: rgba(0,0,0,0.7);
+  border: 2px solid #00e5ff;
+  color: #00e5ff;
+  box-shadow: 0 0 15px #00e5ff;
   transition: all 0.3s ease;
+  z-index: 1;
 }
-
-#helloBtn:hover {
+#pressBtn:hover {
   background: rgba(0,229,255,0.2);
-  color: #fff;
-  box-shadow: 0 0 20px #00e5ff, 0 0 40px #00bfff, 0 0 60px #0088cc;
-  transform: translate(-50%, -50%) scale(1.05);
+  color: white;
+  box-shadow: 0 0 20px #00e5ff, 0 0 40px #00ff88;
 }
 
-/* Nút PROFILE */
+/* Hiệu ứng gradient load */
+@keyframes borderGradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+@keyframes textGradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* ----------- BACKGROUND VIDEO ----------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: black;       /* nền mặc định đen */
+  overflow: hidden;        /* không xuất hiện scroll */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Video nền */
+#bgVideo {
+  position: fixed;   /* luôn cố định, không di chuyển */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* căn giữa tuyệt đối */
+  object-fit: contain; /* giữ tỉ lệ gốc, không stretch */
+  width: auto;
+  height: auto;
+  min-width: auto;
+  min-height: auto;
+  background: black; /* phần thừa vẫn đen */
+  z-index: 1;       /* nằm dưới tất cả */
+}
+
+
+/* ----------- PROFILE ----------- */
 #profileBtn {
   position: fixed;
   top: 25px;
@@ -66,7 +146,6 @@ video#bgVideo {
   display: none;
 }
 
-/* Khung profile */
 .profile-box {
   position: fixed;
   top: 10%;
@@ -80,7 +159,6 @@ video#bgVideo {
   z-index: 4;
 }
 
-/* Hiệu ứng gõ chữ */
 .typewriter {
   white-space: pre-wrap;
   overflow: hidden;
@@ -88,10 +166,6 @@ video#bgVideo {
 
 /* Responsive */
 @media (max-width: 600px) {
-  #helloBtn {
-    padding: 15px 30px;
-    font-size: 18px;
-  }
   .profile-box {
     width: 80%;
     left: 10%;
