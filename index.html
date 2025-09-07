@@ -6,21 +6,28 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- Màn hình loading -->
+<div id="loadingScreen">
+  <div class="progress-border" id="progressBox">
+    <div class="progress-container">
+      <div class="progress-bar">
+        <span class="hashes" id="hashes"></span>
+        <span class="percent" id="percent">0%</span>
+      </div>
+    </div>
+  </div>
 
+  <!-- Nút hiện sau khi load xong -->
+  <button id="pressBtn">VUI LÒNG ẤN</button>
+</div>
 <!-- Nhạc nền -->
 <audio id="bgMusic" src="phainon.mp3" muted loop></audio>
-
-<!-- Nút Xin chào -->
-<button id="helloBtn" onclick="startSite()">Xin chào</button>
-
 <!-- Video nền -->
 <video id="bgVideo" autoplay muted loop>
   <source src="back.mp4" type="video/mp4">
 </video>
-
 <!-- Nút mở profile -->
 <button id="profileBtn" onclick="toggleProfile()">PROFILE</button>
-
 <!-- Khung thông tin -->
 <div class="profile-box" id="profileBox">
   <h3 class="typewriter" data-text="Thông tin"></h3>
