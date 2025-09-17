@@ -12,15 +12,7 @@
       align-items: center;
       background: #111;
       overflow: hidden;
-      flex-direction: column; /* để counter nằm trên nút */
-    }
-
-    /* Vị trí hiển thị số lượt */
-    #counter {
-      color: white;
-      font-size: 18px;
-      margin-bottom: 15px;
-      font-family: Arial, sans-serif;
+      flex-direction: column;
     }
 
     /* Video YouTube */
@@ -35,51 +27,52 @@
       z-index: -1;
     }
 
-    /* Giữ nguyên hiệu ứng nút của bạn */
+    /* Nút switch */
     #checkbox {
       display: none;
     }
     .switch {
       position: relative;
-      width: 70px;
-      height: 70px;
-      background-color: rgb(99, 99, 99);
+      width: 80px;
+      height: 80px;
+      background-color: red; /* nút đỏ */
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid rgb(126, 126, 126);
-      box-shadow: 0px 0px 3px rgb(2, 2, 2) inset;
-      z-index: 1;
+      border: 3px solid white;
+      box-shadow: 0px 0px 15px red;
+      z-index: 2;
+      transition: transform 0.2s;
+    }
+    .switch:hover {
+      transform: scale(1.1);
     }
     .switch svg {
-      width: 1.2em;
+      width: 2em;
     }
     .switch svg path {
-      fill: rgb(255, 0, 0);
+      fill: white; /* icon trắng */
     }
-    #checkbox:checked + .switch {
-      box-shadow: 0px 0px 1px rgb(151, 243, 255) inset,
-        0px 0px 2px rgb(151, 243, 255) inset,
-        0px 0px 10px rgb(151, 243, 255) inset,
-        0px 0px 40px rgb(151, 243, 255),
-        0px 0px 100px rgb(151, 243, 255),
-        0px 0px 5px rgb(151, 243, 255);
-      border: 2px solid rgb(255, 255, 255);
-      background-color: rgb(146, 180, 184);
+
+    /* Mũi tên chỉ vào nút */
+    #arrow {
+      font-size: 50px;
+      color: yellow;
+      margin-bottom: 20px;
+      animation: blink 1s infinite;
     }
-    #checkbox:checked + .switch svg {
-      filter: drop-shadow(0px 0px 5px rgb(151, 243, 255));
-    }
-    #checkbox:checked + .switch svg path {
-      fill: rgb(255, 255, 255);
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <!-- Hiển thị số lượt -->
-  <div id="counter">Đang tải lượt truy cập...</div>
+  <!-- Mũi tên chỉ vào nút -->
+  <div id="arrow">⬇️</div>
 
   <!-- Video Shorts -->
   <iframe id="yt-player"
@@ -105,14 +98,14 @@
     const checkbox = document.getElementById("checkbox");
     const ytFrame = document.getElementById("yt-player");
     const switchBtn = document.getElementById("switch-btn");
-    const counterBox = document.getElementById("counter");
+    const arrow = document.getElementById("arrow");
 
     // Khi bấm nút
     checkbox.addEventListener("change", () => {
       if (checkbox.checked) {
         ytFrame.style.display = "block"; // hiện video
         switchBtn.style.display = "none"; // ẩn nút
-        counterBox.style.display = "none"; // ẩn số lượt
+        arrow.style.display = "none"; // ẩn mũi tên
         player.playVideo(); // phát video
       }
     });
@@ -122,18 +115,6 @@
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    // Gọi API đếm lượt truy cập (dùng namespace riêng)
-    fetch("https://api.countapi.xyz/hit/phucthinh-website-2025/visits")
-      .then(res => res.json())
-      .then(data => {
-        counterBox.innerText = "Tổng số lượt truy cập: " + data.value;
-      })
-      .catch(err => {
-        counterBox.innerText = "Không thể tải số lượt 😢";
-        console.error(err);
-      });
   </script>
 </body>
 </html>
-
