@@ -1,41 +1,112 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Profile Demo</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Switch Play YouTube Shorts</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      overflow: hidden;
+    }
+
+    /* Video YouTube */
+    #yt-player {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: none; /* Ẩn ban đầu */
+      z-index: -1;
+    }
+
+    /* Giữ nguyên hiệu ứng nút của bạn */
+    #checkbox {
+      display: none;
+    }
+    .switch {
+      position: relative;
+      width: 70px;
+      height: 70px;
+      background-color: rgb(99, 99, 99);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgb(126, 126, 126);
+      box-shadow: 0px 0px 3px rgb(2, 2, 2) inset;
+      z-index: 1;
+    }
+    .switch svg {
+      width: 1.2em;
+    }
+    .switch svg path {
+      fill: rgb(48, 48, 48);
+    }
+    #checkbox:checked + .switch {
+      box-shadow: 0px 0px 1px rgb(151, 243, 255) inset,
+        0px 0px 2px rgb(151, 243, 255) inset,
+        0px 0px 10px rgb(151, 243, 255) inset,
+        0px 0px 40px rgb(151, 243, 255),
+        0px 0px 100px rgb(151, 243, 255),
+        0px 0px 5px rgb(151, 243, 255);
+      border: 2px solid rgb(255, 255, 255);
+      background-color: rgb(146, 180, 184);
+    }
+    #checkbox:checked + .switch svg {
+      filter: drop-shadow(0px 0px 5px rgb(151, 243, 255));
+    }
+    #checkbox:checked + .switch svg path {
+      fill: rgb(255, 255, 255);
+    }
+  </style>
 </head>
 <body>
-<!-- Màn hình loading -->
-<div id="loadingScreen">
-  <div class="progress-border" id="progressBox">
-    <div class="progress-container">
-      <div class="progress-bar">
-        <span class="hashes" id="hashes"></span>
-        <span class="percent" id="percent">0%</span>
-      </div>
-    </div>
-  </div>
+  <!-- Video Shorts -->
+  <iframe id="yt-player"
+    src="https://www.youtube.com/embed/SXHMnicI6Pg?enablejsapi=1"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
+  </iframe>
 
-  <!-- Nút hiện sau khi load xong -->
-  <button id="pressBtn">VUI LÒNG ẤN</button>
-</div>
-<!-- Nhạc nền -->
-<audio id="bgMusic" src="phainon.mp3" muted loop></audio>
-<!-- Video nền -->
-<video id="bgVideo" autoplay muted loop>
-  <source src="back.mp4" type="video/mp4">
-</video>
-<!-- Nút mở profile -->
-<button id="profileBtn" onclick="toggleProfile()">PROFILE</button>
-<!-- Khung thông tin -->
-<div class="profile-box" id="profileBox">
-  <h3 class="typewriter" data-text="Thông tin"></h3>
-  <p class="typewriter" data-text="Tên: Phúc Thịnh"></p>
-  <p class="typewriter" data-text="Email: phucthinh@example.com"></p>
-  <p class="typewriter" data-text="THỬ NGHIỆM WEBSITE PROFILE CÁ NHÂN"></p>
-</div>
+  <!-- Nút switch -->
+  <input type="checkbox" id="checkbox" />
+  <label for="checkbox" class="switch" id="switch-btn">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 2L15 8H9L12 2Z"></path>
+    </svg>
+  </label>
 
-<script src="script.js"></script>
+  <script>
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('yt-player');
+    }
+
+    const checkbox = document.getElementById("checkbox");
+    const ytFrame = document.getElementById("yt-player");
+    const switchBtn = document.getElementById("switch-btn");
+
+    checkbox.addEventListener("change", () => {
+      if (checkbox.checked) {
+        ytFrame.style.display = "block"; // hiện video
+        switchBtn.style.display = "none"; // ẩn nút
+        player.playVideo(); // phát video
+      }
+    });
+
+    // Tải YouTube IFrame API
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  </script>
 </body>
 </html>
