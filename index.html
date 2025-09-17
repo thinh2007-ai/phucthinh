@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>Switch Play YouTube Shorts</title>
   <style>
     body {
       margin: 0;
@@ -12,6 +12,15 @@
       align-items: center;
       background: #111;
       overflow: hidden;
+      flex-direction: column; /* để counter nằm trên nút */
+    }
+
+    /* Vị trí hiển thị số lượt */
+    #counter {
+      color: white;
+      font-size: 18px;
+      margin-bottom: 15px;
+      font-family: Arial, sans-serif;
     }
 
     /* Video YouTube */
@@ -69,6 +78,9 @@
   </style>
 </head>
 <body>
+  <!-- Hiển thị số lượt -->
+  <div id="counter">Đang tải lượt truy cập...</div>
+
   <!-- Video Shorts -->
   <iframe id="yt-player"
     src="https://www.youtube.com/embed/SXHMnicI6Pg?enablejsapi=1"
@@ -93,11 +105,14 @@
     const checkbox = document.getElementById("checkbox");
     const ytFrame = document.getElementById("yt-player");
     const switchBtn = document.getElementById("switch-btn");
+    const counterBox = document.getElementById("counter");
 
+    // Khi bấm nút
     checkbox.addEventListener("change", () => {
       if (checkbox.checked) {
         ytFrame.style.display = "block"; // hiện video
         switchBtn.style.display = "none"; // ẩn nút
+        counterBox.style.display = "none"; // ẩn số lượt
         player.playVideo(); // phát video
       }
     });
@@ -107,7 +122,17 @@
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // Gọi API đếm lượt truy cập
+    fetch("https://api.countapi.store/hit/phucthinh/visits")
+      .then(res => res.json())
+      .then(data => {
+        counterBox.innerText = "Tổng số lượt truy cập: " + data.value;
+      })
+      .catch(err => {
+        counterBox.innerText = "Không thể tải số lượt 😢";
+        console.error(err);
+      });
   </script>
 </body>
 </html>
-
